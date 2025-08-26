@@ -136,11 +136,16 @@ Moorti Art Website - Traditional Indian sculpture and craftsmanship theme
 @layer components {
   /* Hero button variants */
   .btn-hero {
-    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg shadow-warm hover:shadow-lg transition-all duration-300 hover:scale-105 hover:from-primary-glow hover:to-primary;
+    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transition-all duration-300 hover:scale-105 hover:from-primary-glow hover:to-primary;
+    box-shadow: var(--shadow-warm);
   }
 
   .btn-hero-outline {
-    @apply border-2 border-primary text-primary bg-transparent px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-warm;
+    @apply border-2 border-primary text-primary bg-transparent px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-hero-outline:hover {
+    box-shadow: var(--shadow-warm);
   }
 
   /* Section spacing */
