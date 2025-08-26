@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet'; // ✅ SEO Helmet import
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -143,8 +144,48 @@ const Products = () => {
     }).format(price);
   };
 
+  // ✅ Dynamic schema bana rahe hain
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Handcrafted Moorti Collection",
+    "itemListElement": products.map((product, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Product",
+        "name": product.name,
+        "image": `https://yourdomain.com${product.image}`,
+        "description": product.description,
+        "sku": `PROD-${product.id}`,
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "INR",
+          "price": product.price,
+          "availability": product.inStock 
+            ? "https://schema.org/InStock" 
+            : "https://schema.org/OutOfStock",
+          "url": `https://yourdomain.com/products/${product.id}`
+        }
+      }
+    }))
+  };
+
   return (
     <div className="min-h-screen pt-16">
+      {/* ✅ Helmet SEO Tags */}
+      <Helmet>
+        <title>Handcrafted Marble, Wooden & Bronze Moortis | Divine Collection</title>
+        <meta 
+          name="description" 
+          content="Browse our wide collection of handcrafted marble moortis, wooden sculptures, bronze idols and custom temple sets. Each piece is carved by skilled artisans." 
+        />
+        <link rel="canonical" href="https://yourdomain.com/products" />
+        <script type="application/ld+json">
+          {JSON.stringify(productSchema)}
+        </script>
+      </Helmet>
+
       {/* Header */}
       <section className="section-padding bg-gradient-to-b from-secondary/30 to-background">
         <div className="max-w-6xl mx-auto text-center">
@@ -153,6 +194,12 @@ const Products = () => {
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Explore our exquisite collection of handcrafted moortis, each piece created with devotion and precision
+          </p>
+
+          {/* ✅ Extra SEO-friendly intro para */}
+          <p className="text-base text-muted-foreground mt-4 max-w-4xl mx-auto">
+            From premium white marble idols to wooden sculptures and bronze castings, our artisans bring every design to life with traditional techniques. 
+            Perfect for temples, homes, or gifting, these moortis reflect timeless craftsmanship and cultural heritage.
           </p>
         </div>
       </section>
@@ -195,7 +242,7 @@ const Products = () => {
                   <div className="relative">
                     <img
                       src={product.image}
-                      alt={product.name}
+                      alt={`${product.name} - ${product.features[0]}`} // ✅ better alt text
                       className="w-full aspect-[4/5] object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     
