@@ -80,7 +80,7 @@ const HeroSlider = () => {
           }`}
         >
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center md:bg-top bg-no-repeat"
             style={{ backgroundImage: `url(${slide.image})` }}
           />
           <div className="absolute inset-0 gradient-overlay" />
