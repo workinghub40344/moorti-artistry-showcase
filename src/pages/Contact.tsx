@@ -26,29 +26,17 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+  const subject = encodeURIComponent(formData.subject || "Moorti Art Enquiry");
+  const body = encodeURIComponent(
+    `Hello,\n\nMy name is ${formData.name}.\nPhone: ${formData.phone}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+  );
 
-    toast({
-      title: "Message Sent Successfully!",
-      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
-    });
+  window.location.href = `mailto:manishsharma40344@gmail.com?subject=${subject}&body=${body}`;
+};
 
-    // Reset form
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-
-    setIsSubmitting(false);
-  };
 
   const contactInfo = [
     {
